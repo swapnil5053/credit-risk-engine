@@ -29,7 +29,7 @@ from typing import Any
 
 import joblib
 import mlflow
-import mlflow.xgboost
+from optuna.integration.mlflow import MLflowCallback
 import numpy as np
 import pandas as pd
 import yaml
@@ -43,7 +43,6 @@ from src.interpretability import compute_shap_values, save_shap_summary
 from src.pipeline import (
     _identify_column_types,
     build_preprocessor,
-    build_training_pipeline,
     run_hyperparameter_search,
 )
 
@@ -188,17 +187,21 @@ def main() -> None:
     with mlflow.start_run(experiment_id=experiment_id) as run:
         logger.info("MLflow run started: %s", run.info.run_id)
 
-        mlflow.xgboost.autolog(log_models=False)
-
         for tag_key, tag_value in mlflow_cfg.get("tags", {}).items():
             mlflow.set_tag(tag_key, tag_value)
 
         numeric_features, categorical_features = _identify_column_types(X_train)
         preprocessor = build_preprocessor(numeric_features, categorical_features)
-        pipeline = build_training_pipeline(preprocessor, config)
 
-        search = run_hyperparameter_search(pipeline, X_train, y_train, config)
-        best_pipeline = search.best_estimator_
+        mlflow_callback = MLflowCallback(
+            tracking_uri=mlflow_cfg["tracking_uri"],
+            metric_name=config["model"]["scoring_metric"],
+            create_experiment=False
+        )
+
+        best_pipeline = run_hyperparameter_search(
+            preprocessor, X_train, y_train, config, mlflow_callback
+        )
 
         y_pred: np.ndarray = best_pipeline.predict(X_test)
 
