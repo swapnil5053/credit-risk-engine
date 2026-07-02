@@ -1,3 +1,7 @@
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 import json
 from main import _load_config, CONFIG_PATH
 from src.data_loader import load_dataset

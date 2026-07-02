@@ -7,7 +7,7 @@ containerised REST API using FastAPI.
 Exposes a `/predict` endpoint that accepts a generic JSON payload
 representing a customer's feature set, and returns the model's predicted
 default probability along with an approval decision and an automated
-reasoning via the Groq GenAI Assessor.
+rationale generated via an LLM integration.
 
 Usage:
     uvicorn src.api:app --reload
@@ -38,7 +38,7 @@ DECISION_THRESHOLD = 0.50
 
 app = FastAPI(
     title="Home Credit Default Risk API",
-    description="Enterprise Loan Default Prediction Engine with GenAI Reasoning",
+    description="Enterprise Credit Risk Engine with Automated Rationale Generation",
     version="1.1.0",
 )
 
@@ -77,7 +77,7 @@ def _generate_rejection_reasoning(payload: dict[str, Any]) -> str:
     explanation for a loan rejection based on the provided financial metrics.
     """
     if not groq_client:
-        return "Automated reasoning unavailable: GenAI Assessor is not configured."
+        return "Automated rationale unavailable: Risk Rationale Module is not configured."
 
     system_prompt = (
         "You are a Senior Credit Risk Officer at a commercial bank. "
@@ -95,21 +95,21 @@ def _generate_rejection_reasoning(payload: dict[str, Any]) -> str:
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt},
             ],
-            model="llama3-8b-8192",
+            model="llama-3.1-8b-instant",
             temperature=0.0,
             max_tokens=150,
         )
         return response.choices[0].message.content.strip()
     except Exception as exc:
-        logger.error("GenAI reasoning failed: %s", exc)
-        return "Automated reasoning temporarily unavailable."
+        logger.error("Risk rationale generation failed: %s", exc)
+        return "Automated rationale temporarily unavailable."
 
 
 @app.post("/predict")
 def predict_endpoint(payload: CustomerPayload) -> dict[str, Any]:
     """
     Run a single observation through the fitted pipeline and return
-    a structured decision payload alongside a GenAI reasoning string.
+    a structured decision payload alongside an automated rationale string.
     """
     try:
         pipeline = _load_pipeline()
