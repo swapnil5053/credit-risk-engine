@@ -12,11 +12,8 @@ split:
 model:
   scoring_metric: "f1"
   cv_folds: 5
-  hyperparameter_grid:
-    max_depth: [3, 5, 7]
-    learning_rate: [0.01, 0.1, 0.2]
-    n_estimators: [100, 200, 300]
-    scale_pos_weight: [1, 3, 5]
+  optuna:
+    n_trials: 30
 
 mlflow:
   tracking_uri: "sqlite:///mlruns.db"
