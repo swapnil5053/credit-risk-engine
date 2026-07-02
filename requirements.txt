@@ -9,6 +9,7 @@ joblib~=1.4
 matplotlib~=3.9
 kaggle~=1.6
 optuna~=3.6
+optuna-integration
 fastapi~=0.111
 uvicorn~=0.30
 pydantic~=2.7
