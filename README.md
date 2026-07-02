@@ -1,8 +1,8 @@
-# Credit Risk Analytics Engine
+# Credit Risk Engine
 
 An end-to-end, containerized microservice for real-time credit default prediction.
 
-This project was developed to process the highly relational, 300,000+ row Home Credit Default Risk dataset. It serves as a comprehensive risk analytics engine, featuring automated Bayesian hyperparameter tuning, MLOps tracking, and a production-ready REST API.
+Built on the 300,000+ row Home Credit Default Risk dataset, with Bayesian hyperparameter tuning (Optuna), MLflow experiment tracking, and a containerized FastAPI inference endpoint.
 
 > **Project Origin:** The idea for this project emerged while completing IBM's AI Fundamentals course, where I explored IBM Watson's automated machine learning workflow. That experience motivated me to build a similar credit risk pipeline from scratch, implementing the data engineering, model training, optimization, deployment, and monitoring components myself.
 
