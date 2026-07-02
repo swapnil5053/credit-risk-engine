@@ -97,6 +97,7 @@ def build_training_pipeline(
                     use_label_encoder=False,
                     random_state=config["split"]["random_state"],
                     verbosity=0,
+                    device="cuda",
                 ),
             ),
         ]
@@ -130,7 +131,7 @@ def run_hyperparameter_search(
         param_grid=param_grid,
         scoring=model_cfg["scoring_metric"],
         cv=model_cfg["cv_folds"],
-        n_jobs=-1,
+        n_jobs=1,
         verbose=1,
         refit=True,
     )
