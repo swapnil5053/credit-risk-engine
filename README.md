@@ -13,7 +13,9 @@ The pipeline is entirely modular and config-driven, built with the following sta
 - **Bayesian Optimization**: Optuna replaces brute-force grid search, utilizing probabilistic models to find optimal hyperparameters efficiently.
 - **MLOps Tracking**: MLflow integrated via Optuna callbacks to log trials, parameters, and model artifacts to a local SQLite backend.
 - **Explainability**: SHAP (SHapley Additive exPlanations) for compliance-ready, tree-based feature importance mapping.
-- **Deployment**: FastAPI and Docker to wrap the predictive model in a containerized REST API.
+- **GenAI Risk Assessor**: Groq LLM integration (llama3-8b-8192) to automatically generate clinical, natural-language reasoning for rejected applications.
+- **Deployment**: FastAPI and Docker to wrap the predictive model in a cloud-ready, containerized REST API.
+- **CI/CD & DevOps**: GitHub Actions workflow for automated Docker builds and image publishing to the GitHub Container Registry (GHCR).
 
 ## Training Results & Evaluation
 
@@ -33,6 +35,12 @@ mlflow ui --backend-store-uri sqlite:///mlruns.db
 ```
 
 ## Local Setup & Deployment
+
+**Prerequisites:**
+Create a `.env` file in the root directory and add your Groq API key:
+```env
+GROQ_API_KEY=your_api_key_here
+```
 
 Install dependencies:
 ```bash
