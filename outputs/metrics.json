@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-07-01T21:44:10.423963+00:00",
+  "config_path": "C:\\Users\\Swapnil\\.gemini\\antigravity-ide\\scratch\\loan-default-pipeline\\config\\settings.yaml",
+  "classification_report": {
+    "0": {
+      "precision": 0.9440861007703365,
+      "recall": 0.9060808659662528,
+      "f1-score": 0.9246931407942238,
+      "support": 28269.0
+    },
+    "1": {
+      "precision": 0.2667771333885667,
+      "recall": 0.3890455094643576,
+      "f1-score": 0.3165137614678899,
+      "support": 2483.0
+    },
+    "accuracy": 0.8643340270551508,
+    "macro avg": {
+      "precision": 0.6054316170794516,
+      "recall": 0.6475631877153052,
+      "f1-score": 0.6206034511310569,
+      "support": 30752.0
+    },
+    "weighted avg": {
+      "precision": 0.8893983352263415,
+      "recall": 0.8643340270551508,
+      "f1-score": 0.8755870859403189,
+      "support": 30752.0
+    }
+  }
+}
